@@ -3,13 +3,20 @@ name = "clips_app"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 actix-files = "0.6.2"
+#actix-form-data = "0.6.2"
+actix-multipart = "0.4.0"
 actix-web = { version = "4.1.0", features = ["openssl"] }
 dotenv = "0.15.0"
 env_logger = "0.9.0"
+futures = "0.3.23"
+futures-util = "0.3.23"
 log = "0.4.17"
+mime = "0.3.16"
 openssl = "0.10.41"
+rand = "0.8.5"
+serde = { version = "1.0.144", features = ["derive"] }
 tokio = { version = "1.20.1", features = ["full"] }
+uuid = { version = "1.1.2", features = ["serde", "v4"] }
+actix-upload = { path = "./actix_upload/" }

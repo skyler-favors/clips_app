@@ -1,14 +1,23 @@
+use actix_web::{web::{get, post}, middleware::Logger, web, App, HttpServer, HttpRequest, web::resource, Result};
+use actix_files::{NamedFile, Files};
 use dotenv::dotenv;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
-use actix_web::{web, middleware::Logger, App, HttpServer};
 use std::env;
 use std::io;
+use std::path::PathBuf;
 
-mod index;
+//mod index;
 //mod download;
+mod upload;
 
-use index::index as index_page;
+//use index::index as index_page;
 //use download::download as download_page;
+use upload::upload as upload_page;
+
+async fn index(_req: HttpRequest) -> Result<NamedFile> {
+    let path: PathBuf = "static/index.html".parse().unwrap();
+    Ok(NamedFile::open(path)?)
+}
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
@@ -35,13 +44,13 @@ async fn main() -> io::Result<()> {
     let server = HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
-            .service(actix_files::Files::new("/clips", "static/clips").show_files_listing())
-            .service(actix_files::Files::new("/", "static/").index_file("index.html"))
-            //.route("/", web::get().to(index_page))
-            //.route("/{filename:.*}", web::get().to(download_page))
+            .service(Files::new("/clips", "static/clips").show_files_listing())
+            .service(resource("/").route(get().to(index)))
+            .service(resource("/upload").route(post().to(upload_page)))
     })
     .workers(2)
     .bind_openssl(url, builder)?
+    //.bind(url)?
     .run();
     server.await
 }
