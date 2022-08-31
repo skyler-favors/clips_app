@@ -1,0 +1,3 @@
+
+
+// view a clip

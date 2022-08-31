@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS clips (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  uuid TEXT NOT NULL
+)
