@@ -1,0 +1,28 @@
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+form > ul > li {
+  list-style-type: none;
+  margin-bottom: 5%;
+}
+
+input {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+
+video {
+  width: 80%;
+  height: 80%;
+}

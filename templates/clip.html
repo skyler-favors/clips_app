@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+<body>
+    {{#with clip}}
+    <h1>{{name}}</h1>
+    <ul>
+      <li>{{description}}</li>
+      <li>uuid: {{uuid}}</li>
+      <li>id: {{id}}</li>
+    </ul>
+    <video controls src="../clip/{{uuid}}.mp4" />
+    {{/with}}
+</body>
+
+</html>

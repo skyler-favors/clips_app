@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+<body>
+  <h1>ALL THE CLIPS</h1>
+  <ol>
+    {{#each clips}}
+      <li><a href="/clips/{{this.id}}">{{this.name}}</a></li>
+    {{/each}}
+  </ol>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+<body>
+  <h1>UPLOAD</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <ul>
+      <li>
+        <label for="filename">Title: </label>
+        <input type="text" name="filename" id="filename" required>
+      </li>
+
+      <li>
+        <label for="description">Description: </label>
+        <input type="text" name="description" id="description" required>
+      </li>
+
+      <li>
+        <label for="file">Upload Clip: </label>
+        <input type="file" name="file" id="file" required>
+      </li>
+
+      <li>
+        <input type="submit" value="Submit">
+      </li>
+    </ul>
+  </form>
+</body>
+
+</html>

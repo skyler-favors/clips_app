@@ -1,12 +1,14 @@
 //use actix_form_data::{Value, Error as FormError};
 use actix_multipart::Multipart;
 use actix_web::{web::Data, Error, HttpResponse};
+use async_fs::File;
 use futures::StreamExt;
 use futures_lite::io::AsyncWriteExt;
 use sqlx::PgPool;
 use uuid::Uuid;
 
-pub async fn upload(mut payload: Multipart, db: Data<PgPool>) -> Result<HttpResponse, Error> {
+// POST /upload | multipart/form
+pub async fn upload_post(mut payload: Multipart, db: Data<PgPool>) -> Result<HttpResponse, Error> {
     //let upload_status = save_file(payload, "/static/clips/".to_string()).await;
     println!("INSIDE UPLOAD");
 
@@ -31,12 +33,13 @@ pub async fn upload(mut payload: Multipart, db: Data<PgPool>) -> Result<HttpResp
                     .to_owned()
             }
             "file" => {
-                let path = format!("./static/clips/{}.{}", uuid, "mp4");
-                let mut file = async_fs::File::create(&path).await?;
+                let path = format!("./clips/{}.{}", uuid, "mp4");
+                let mut file = File::create(&path).await?;
 
                 // Field in turn is stream of *Bytes* object
                 while let Some(chunk) = field.next().await {
                     let bytes = chunk?;
+                    println!("recieved chunk: {}", bytes.len());
                     file.write_all(&bytes).await?;
                 }
 

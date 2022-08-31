@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+<body>
+  <h1>CLIPS HOME</h1>
+  <ul>
+    {{#if user}}
+    <li><a href="/logout">Logout</a></li>
+    {{else}}
+    <li><a href="/signup">Signup</a></li>
+    <li><a href="/login">Login</a></li>
+    {{/if}}
+    <li><a href="/upload">Upload</a></li>
+    <li><a href="/clips">Clips</a></li>
+  </ul>
+</body>
+
+</html>
