@@ -7,6 +7,8 @@
   <title>CLIPS</title>
 </head>
 
+  {{> header}}
+
 <body>
     {{#with clip}}
     <h1>{{name}}</h1>
@@ -14,6 +16,7 @@
       <li>{{description}}</li>
       <li>uuid: {{uuid}}</li>
       <li>id: {{id}}</li>
+      <li><a href="../clip/{{uuid}}">RAW VIDEO</a></li>
     </ul>
     <video controls src="../clip/{{uuid}}.mp4" />
     {{/with}}

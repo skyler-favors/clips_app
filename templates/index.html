@@ -7,18 +7,15 @@
   <title>CLIPS</title>
 </head>
 
+{{> header}}
+
 <body>
   <h1>CLIPS HOME</h1>
-  <ul>
-    {{#if user}}
-    <li><a href="/logout">Logout</a></li>
-    {{else}}
-    <li><a href="/signup">Signup</a></li>
-    <li><a href="/login">Login</a></li>
-    {{/if}}
-    <li><a href="/upload">Upload</a></li>
-    <li><a href="/clips">Clips</a></li>
-  </ul>
+  <ol>
+    {{#each clips}}
+    <li><a href="/{{this.id}}">{{this.name}}</a></li>
+    {{/each}}
+  </ol>
 </body>
 
 </html>

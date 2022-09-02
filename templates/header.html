@@ -1,0 +1,12 @@
+<header>
+  <ul>
+    <li><a href="/">Home</a></li>
+    {{#if user}}
+    <li>{{name}}</li>
+    <li><a href="/logout">Logout</a></li>
+    {{else}}
+    <li><a href="/login">Login</a></li>
+    {{/if}}
+    <li><a href="/upload">Upload</a></li>
+  </ul>
+</header>

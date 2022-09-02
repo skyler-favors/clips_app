@@ -39,7 +39,7 @@ pub async fn upload_post(mut payload: Multipart, db: Data<PgPool>) -> Result<Htt
                 // Field in turn is stream of *Bytes* object
                 while let Some(chunk) = field.next().await {
                     let bytes = chunk?;
-                    println!("recieved chunk: {}", bytes.len());
+                    //println!("recieved chunk: {}", bytes.len());
                     file.write_all(&bytes).await?;
                 }
 

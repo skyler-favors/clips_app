@@ -26,16 +26,3 @@ pub async fn get_clip_info(id: i32, db: &PgPool) -> ClipInfo {
         .unwrap();
     clips
 }
-
-pub async fn _insert_new_user(user: (String, String), db: &PgPool) -> Result<i32, sqlx::Error> {
-    let id = sqlx::query!(
-        r#"
-        INSERT INTO users (username,password) 
-        VALUES ($1,$2)
-        RETURNING id
-        "#,
-        user.0, user.1
-    ).fetch_one(db).await.unwrap();
-
-    Ok(id.id)
-}

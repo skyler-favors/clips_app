@@ -6,27 +6,22 @@ use actix_web::{
     web::{get, post, scope, Data},
     App, HttpServer,
 };
-use std::{io, time::Duration};
+use std::io;
 
 mod auth;
 mod config;
 mod db;
 mod upload;
 mod view;
+mod s3;
 
-use auth::{login_post, logout_post, signup_post};
+use auth::{login_post, logout_post};
 use upload::upload_post;
-use view::{clip, index, list, login_page, signup_page, upload_page};
+use view::{clip, index, login_page, upload_page};
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
-    let config = config::config().await;
-    let url = config.0;
-    //let builder = config.1;
-    let db_pool = config.1;
-    let hb = config.2;
-    let identity_ware = config.3;
-    let redis_keys = config.4;
+    let (url, db_pool, hb, identity_ware, redis_keys) = config::config().await;
 
     // logger
     env_logger::init();
@@ -43,23 +38,12 @@ async fn main() -> io::Result<()> {
             .wrap(Logger::default())
             .app_data(Data::new(db_pool.clone()))
             .app_data(Data::new(hb.clone()))
-            .service(Files::new("/clip", "./clips"))
+            .service(Files::new("/clip", "./clips").show_files_listing())
             .service(Files::new("/static", "./static"))
-            .service(resource("/").route(get().to(index)))
             .service(
                 scope("/upload")
                     .route("", get().to(upload_page))
                     .route("", post().to(upload_post)),
-            )
-            .service(
-                scope("/clips")
-                    .route("", get().to(list))
-                    .route("/{clip_id}", get().to(clip)),
-            )
-            .service(
-                scope("/signup")
-                    .route("", get().to(signup_page))
-                    .route("", post().to(signup_post)),
             )
             .service(
                 scope("/login")
@@ -67,10 +51,9 @@ async fn main() -> io::Result<()> {
                     .route("", post().to(login_post)),
             )
             .service(resource("/logout").route(post().to(logout_post)))
+            .service(resource("/").route(get().to(index)))
+            .service(resource("/{clip_id}").route(get().to(clip)))
     })
-    //.workers(10)
-    //.bind_openssl(url, builder)?
-    .keep_alive(Duration::from_secs(1200))
     .bind(url)?
     .run();
     server.await
