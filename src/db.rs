@@ -26,3 +26,33 @@ pub async fn get_clip_info(id: i32, db: &PgPool) -> ClipInfo {
         .unwrap();
     clips
 }
+
+pub async fn edit_clip(db: &PgPool, id: i32, name: &str, description: &str) {
+    let _id = sqlx::query!(
+        r#"
+        UPDATE clips
+        SET name = $1,
+        description = $2
+        WHERE id = $3
+        "#,
+        name,
+        description,
+        id
+    )
+    .execute(db)
+    .await
+    .unwrap();
+}
+
+pub async fn delete_clip(id: i32, db: &PgPool) {
+    let _id = sqlx::query!(
+        r#"
+        DELETE FROM clips
+        WHERE id = $1
+        "#,
+        id
+    )
+    .execute(db)
+    .await
+    .unwrap();
+}

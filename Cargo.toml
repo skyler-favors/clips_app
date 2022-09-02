@@ -24,3 +24,4 @@ actix-identity = "0.5.2"
 actix-session = { version = "0.7.1", features = ["redis-rs-session"] }
 aws-config = "0.48.0"
 aws-sdk-s3 = "0.18.0"
+anyhow = "1.0.63"

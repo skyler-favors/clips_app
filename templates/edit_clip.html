@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+{{> header}}
+
+<body>
+  <h1>EDIT CLIP</h1>
+  {{#with clip}}
+  <form action="/admin/edit/{{id}}" method="post">
+    <input type="text" value="{{name}}" name="name" id="name">
+    <input type="text" value="{{description}}" name="description" id="description">
+    <input type="submit" value="Submit">
+  </form>
+
+  <h1>{{name}}</h1>
+  <ul>
+    <li>{{description}}</li>
+    <li>uuid: {{uuid}}</li>
+    <li>id: {{id}}</li>
+    <li><a href="../../clip/{{uuid}}.mp4">RAW VIDEO</a></li>
+  </ul>
+  <video controls src="../../clip/{{uuid}}.mp4" />
+  {{/with}}
+</body>
+
+</html>

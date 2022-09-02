@@ -1,6 +1,6 @@
 //use actix_form_data::{Value, Error as FormError};
 use actix_multipart::Multipart;
-use actix_web::{web::Data, Error, HttpResponse};
+use actix_web::{web::Data, Error, HttpResponse, http::header::LOCATION};
 use async_fs::File;
 use futures::StreamExt;
 use futures_lite::io::AsyncWriteExt;
@@ -61,7 +61,7 @@ pub async fn upload_post(mut payload: Multipart, db: Data<PgPool>) -> Result<Htt
         }
     }
 
-    Ok(HttpResponse::Ok()
-        .content_type("text/plain")
-        .body("upload_succeeded"))
+    Ok(HttpResponse::MovedPermanently()
+        .insert_header((LOCATION, "/"))
+        .finish())
 }

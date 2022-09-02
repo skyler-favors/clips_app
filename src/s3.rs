@@ -6,3 +6,9 @@ the plan:
 
 */
 
+use anyhow::{Result, Error};
+
+pub async fn _upload_s3(_bucket_name: &str, _file_name: &str) -> Result<(), Error> {
+    Ok(())
+}
+

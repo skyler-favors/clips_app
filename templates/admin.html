@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>CLIPS</title>
+</head>
+
+{{> header}}
+
+<body>
+  <h1>ADMIN HOME</h1>
+  <ul>
+    {{#if logged_in}}
+    <form action="/admin/logout" method="post">
+      <input type="hidden" id="logout" name="logout" value="true">
+      <input type="submit" value="LOG OUT">
+    </form>
+    {{else}}
+    <li><a href="/admin/login">LOGIN</a></li>
+    {{/if}}
+
+    <ol>
+      {{#each clips}}
+      <li><a href="/admin/edit/{{this.id}}">EDIT {{this.name}}</a></li>
+
+      <form action="/admin/delete/{{this.id}}" method="post">
+        <input type="hidden" id="delete" name="delete" value="true">
+          <input type="hidden" id="uuid" name="uuid" value="{{this.uuid}}">
+        <input type="submit" value="DELETE {{this.name}}">
+      </form>
+
+      {{/each}}
+    </ol>
+  </ul>
+</body>
+
+</html>
